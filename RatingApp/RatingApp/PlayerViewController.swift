@@ -30,3 +30,23 @@ extension PlayerViewController {
         return cell
     }
 }
+extension PlayerViewController {
+    
+    @IBAction func cancelToPlayersViewController(_ segue: UIStoryboardSegue) {
+    }
+    
+    @IBAction func savePlayerDetail(_ segue: UIStoryboardSegue) {
+        guard let playersDetailsViewController = segue.source as? PlayersDetailsViewController,
+            let player = playersDetailsViewController.player else {
+                return
+        }
+        
+        // add the new player to the players array
+        players.append(player)
+        print("palyer added \(String(describing: player.name))")
+        // update the tableView
+        let indexPath = IndexPath(row: players.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
+}

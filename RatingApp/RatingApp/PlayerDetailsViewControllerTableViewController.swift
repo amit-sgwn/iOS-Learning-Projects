@@ -10,8 +10,16 @@ import UIKit
 
 class PlayersDetailsViewController : UITableViewController {
 
+    var player : Player?
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var detailLabel: UILabel!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+        if segue.identifier == "SavePlayerDetail",
+            let playerName = nameTextField.text {
+            player = Player(name: playerName, game: "Chess", rating: 1)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,31 +30,13 @@ class PlayersDetailsViewController : UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
 }
 
-extension PlayerViewController {
+extension PlayersDetailsViewController {
     
-    @IBAction func cancelToPlayersViewController(_ segue: UIStoryboardSegue) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            nameTextField.becomeFirstResponder()
+        }
     }
-    
-    @IBAction func savePlayerDetail(_ segue: UIStoryboardSegue) {
-    }
-    
 }
